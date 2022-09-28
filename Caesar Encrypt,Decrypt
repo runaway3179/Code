@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstring>
+#define MAX 255
+using namespace std;
+int main() {
+  char text[MAX]={0};
+  char text2[MAX]={0};
+  int num,num2,num3=0;
+  char encrypt_cpy[MAX]={0};
+  char decrypt_cpy[MAX]={0};
+  int len=0;
+  
+  cout << "== 시저 암호 암호화/복호화 코드 ==" << endl;
+  restart:
+  cout << "암호화는 1번, 복호화는 2번을 입력해주세요 : ";
+  cin >> num2;
+  if (num2 == 1) {
+    cout << "이동할 만큼의 숫자를 입력하세요(1~25) : ";
+    cin >> num;
+    cout << "평문을 입력하세요 : ";
+    cin >> text;
+    len = strlen(text);
+
+    for(int x=0;x<len;x++) {
+      if(text[x] >= 'a' && text[x]<='z') {
+        encrypt_cpy[x] = (text[x] - 'a'+num)%26 +'a';
+      }
+      if(text[x] >= 'A' && text[x]<='Z') {
+        encrypt_cpy[x] = (text[x] - 'A'+num)%26 +'A';
+      }
+    }
+    cout << "암호문 : " << encrypt_cpy << endl;
+  }
+  else if (num2 == 2) {
+    cout << "이동된 만큼의 숫자를 입력하세요(1~25) : ";
+    cin >> num;
+    cout << "암호문을 입력하세요 : ";
+    cin >> text;
+    len = strlen(text);
+    for(int x=0;x<len;x++) {
+      if(encrypt_cpy[x] >= 'a' && encrypt_cpy[x]<='z') {
+        decrypt_cpy[x] = (encrypt_cpy[x] - 'a'-num)%26 +'a';
+      }
+      if(encrypt_cpy[x] >= 'A' && encrypt_cpy[x]<='Z') {
+        decrypt_cpy[x] = (encrypt_cpy[x] - 'A'-num)%26 +'A';
+      }
+    }
+    cout << "평문 복호화 : " << decrypt_cpy << endl;
+    return 0;
+  }
+  else {
+    cout << "잘못된 숫자입니다.";
+    goto restart;
+  }
+  cout << "처음부터 다시 시작하려면 1, 끝내려면 0을 입력해주세요";
+  cin >> num3;
+  if (num3 == 1) goto restart;
+  else if (num3 == 0) return 0;
+  else return 0;
+}
